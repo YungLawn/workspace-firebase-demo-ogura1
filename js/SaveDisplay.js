@@ -14,7 +14,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // save the data
-$(".sampleSurvey input[type='submit']").click(function(e){
+$(".sampleSurvey input[type='submit']").click(function(e) {
   e.preventDefault();
 
   //get value of the form using serializeArray method
@@ -22,14 +22,13 @@ $(".sampleSurvey input[type='submit']").click(function(e){
   console.log(data);
 
   var inputJson = {};
-  for(var i = 0; i < data.length;i++){
-
+  for (var i = 0; i < data.length; i++) {
     var name = data[i]["name"];
     var value = data[i]["value"];
     // console.log(name + " " + value);
     inputJson[name] = value;
   }
-  
+
   console.log(inputJson);
 
   firebase
@@ -39,7 +38,58 @@ $(".sampleSurvey input[type='submit']").click(function(e){
 
   /* clear the entry */
   $("form")[0].reset();
-
 });
 
 // update the result in table
+
+//get data from database
+firebase
+  .firestore()
+  .collection("survey")
+  .onSnapshot(function(querySnapshot) {
+    console.log("size: " + querySnapshot.size);
+    querySnapshot.forEach(doc => {
+      console.log("1: " + doc.data());
+      console.log("2: " + doc.data().choice);
+      console.log("3: " + doc.data().comm);
+    });
+  });
+
+firebase
+  .firestore()
+  .collection("survey")
+  .onSnapshot(function(querySnapshot) {
+    console.log(querySnapshot);
+    console.log(querySnapshot.size);
+
+    var one = parseInt($("#ans1").text());
+    var two = parseInt($("#ans2").text());
+    var three = parseInt($("#ans3").text());
+    var four = parseInt($("#ans4").text());
+    var five = parseInt($("#ans5").text());
+
+    querySnapshot.forEach(doc => {
+      var choice = doc.data().choice;
+
+      if (choice == "A") {
+        one ++;
+        $("#ans1").text(one);
+      }
+      if (choice == "B") {
+        two++;
+        $("#ans2").text(two);
+      }
+      if (choice == "C") {
+        three++;
+        $("#ans3").text(three);
+      }
+      if (choice == "D") {
+        four++;
+        $("#ans4").text(four);
+      }
+      if (choice == "E") {
+        five++;
+        $("#ans5").text(five);
+      }
+    });
+  });
