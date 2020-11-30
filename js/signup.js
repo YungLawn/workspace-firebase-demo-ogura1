@@ -12,24 +12,25 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 //start ....
-console.log("1 start");
+console.log("start");
 
 //sign up when user click button
 $('#signup-form').submit(function(e){
   e.preventDefault();
-  console.log("2 button clicked");
+  console.log("button clicked");
 
   //use provided sign in method
 
-  var email = $('input[name="username"]').value;
-  console.log("3: " + email);
+  var email = document.getElementById("username").value;
+  console.log("email: " + email);
   var pass = document.getElementById("password").value;
-  console.log("4: " + pass);
+  console.log("password: " + pass);
 
   // var email = "cteelon@usca.edu";
   // var psw = "aiken123";
-  firebase.auth().createUserWithEmailAndPassword(email, pass).then(user =>{
-    console.log("success");
+  firebase.auth().createUserWithEmailAndPassword(email, pass)
+  .then(success =>{
+    console.log("save success!");
   }).catch(error=>{
     console.log(error.code);
     console.log(error.message);
