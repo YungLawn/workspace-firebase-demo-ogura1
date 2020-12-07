@@ -1,3 +1,14 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyDaq17_jm_sBe6XEffuf8uye6wXoq5WgYQ",
+  authDomain: "final-project-660e8.firebaseapp.com",
+  projectId: "final-project-660e8",
+  storageBucket: "final-project-660e8.appspot.com",
+  messagingSenderId: "798331069936",
+  appId: "1:798331069936:web:a6b7fa5b75cacef8dca935",
+  measurementId: "G-NBT3QYCHDR"
+};
+
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
@@ -30,7 +41,7 @@ $(".sampleSurvey input[type='submit']").click(function(e) {
   }
 
   console.log(inputJson);
-
+  
   firebase
     .firestore()
     .collection("survey")
